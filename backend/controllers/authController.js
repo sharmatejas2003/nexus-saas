@@ -15,25 +15,32 @@ exports.login = async (req, res) => {
   try {
     const { email, password } = req.body;
 
+    // 1. Check if user exists
     const user = await User.findOne({ email });
-    if (!user) return res.status(400).json({ message: "User not found" });
-
-    if (user.isBanned) {
-      return res.status(403).json({ message: "You are banned" });
+    if (!user) {
+      return res.status(400).json({ message: "Invalid email or password" });
     }
 
-    const isMatch = await bcrypt.compare(password, user.password);
+    // 2. Check password (ensure you have a comparePassword method in your User model)
+    const isMatch = await user.comparePassword(password);
     if (!isMatch) {
-      return res.status(400).json({ message: "Invalid password" });
+      return res.status(400).json({ message: "Invalid email or password" });
     }
+
+    // 3. Generate Token
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: "1d" });
 
     res.json({
-      token: generateToken(user),
-      user
+      token,
+      user: {
+        id: user._id,
+        name: user.name,
+        email: user.email,
+        role: user.role
+      }
     });
-
   } catch (err) {
-    res.status(500).json({ message: "Login error" });
+    res.status(500).json({ message: "Server Error" });
   }
 };
 

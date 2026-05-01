@@ -8,30 +8,25 @@ export default function Login() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+ const handleSubmit = async (e) => {
+  e.preventDefault();
+  
+  // LOG THE DATA before sending to verify it's not empty
+  console.log("Attempting login with:", { email, password });
 
-    if (!email || !password) {
-      return alert("Please enter email and password");
-    }
+  try {
+    const res = await API.post("/auth/login", { email, password });
 
-    try {
-      setLoading(true);
-
-      const res = await API.post("/auth/login", { email, password });
-
-      localStorage.setItem("token", res.data.token);
-      localStorage.setItem("user", JSON.stringify(res.data.user)); // ✅ REQUIRED
-      navigate("/dashboard");
-
-    } catch (err) {
-      console.error(err);
-      alert("Login failed");
-    } finally {
-      setLoading(false);
-    }
-  };
-
+    // Store items exactly as needed by your App/Navbar
+    localStorage.setItem("token", res.data.token);
+    localStorage.setItem("user", JSON.stringify(res.data.user)); 
+    
+    navigate("/dashboard");
+  } catch (err) {
+    // This will alert the specific error from the backend
+    alert(err.response?.data?.message || "Login failed");
+  }
+};
   return (
     <div className="flex flex-col justify-center items-center h-screen bg-gray-100">
       <form onSubmit={handleSubmit} className="bg-white p-6 shadow-md w-80 rounded">
