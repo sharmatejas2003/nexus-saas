@@ -14,10 +14,10 @@ Nexus SaaS is a full-stack project management platform designed for industrial-s
 - Progress Tracking: Real-time updates for task statuses (Pending, In Progress, Submitted, Completed).
 - Bulk Operations: Single-request task creation to optimize API usage.
 
-## 👑 Admin Access & Authentication
+##  Admin Access & Authentication
 To test the administrative features or create a teacher account, please refer to the detailed access guide:
 
-👉 **[View the Admin & Registration Guide](./Admin_Guide.txt)**
+ **[View the Admin & Registration Guide](./Admin_Guide.txt)**
 
 This file contains pre-configured credentials and instructions on how to use the "Admin Secret" for new registrations.
 
