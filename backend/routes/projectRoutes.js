@@ -1,18 +1,22 @@
 const router = require("express").Router();
 const { protect, isAdmin } = require("../middleware/auth");
+const projectController = require("../controllers/projectController");
 
+// Destructure from the controller object
 const {
   createProject,
   getProjects,
   addMember,
   deleteProject 
-} = require("../controllers/projectController");
+} = projectController;
 
-// Standard Routes
+// Safety check for Node v22
+if (!createProject || !getProjects || !deleteProject) {
+  console.error("❌ ERROR: Project controller functions are missing!");
+}
+
 router.post("/", protect, createProject);
 router.get("/", protect, getProjects);
-
-// Admin/Member Routes
 router.post("/:id/add-member", protect, isAdmin, addMember);
 router.delete("/:id", protect, deleteProject);
 
