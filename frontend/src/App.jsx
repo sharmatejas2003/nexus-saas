@@ -11,10 +11,11 @@ import CreateTask from "./pages/CreateTask";
 export default function App() {
   const token = localStorage.getItem("token");
   
-  // Safe role check
   const getRole = () => {
     try {
-      const user = JSON.parse(localStorage.getItem("user") || "{}");
+      const savedUser = localStorage.getItem("user");
+      if (!savedUser || savedUser === "undefined") return null;
+      const user = JSON.parse(savedUser);
       return user.role;
     } catch (e) {
       return null;

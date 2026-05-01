@@ -3,7 +3,8 @@ import { Link, useNavigate } from "react-router-dom";
 export default function Navbar() {
   const navigate = useNavigate();
 
-  const user = JSON.parse(localStorage.getItem("user") || "null");
+  const savedUser = localStorage.getItem("user");
+  const user = (savedUser && savedUser !== "undefined") ? JSON.parse(savedUser) : null;
 
   const logout = () => {
     localStorage.removeItem("token");
