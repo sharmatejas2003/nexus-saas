@@ -10,17 +10,20 @@ const protect = async (req, res, next) => {
       req.user = await User.findById(decoded.id).select("-password");
       next();
     } catch (error) {
-      res.status(401).json({ message: "Not authorized" });
+      return res.status(401).json({ message: "Not authorized" });
     }
   }
   if (!token) {
-    res.status(401).json({ message: "No token" });
+    return res.status(401).json({ message: "No token" });
   }
 };
 
-exports.isAdmin = (req, res, next) => {
-  if (req.user.role !== "admin") {
+const isAdmin = (req, res, next) => {
+  if (req.user && req.user.role !== "admin") {
     return res.status(403).json({ message: "Admin only" });
   }
   next();
 };
+
+// Unified export style
+module.exports = { protect, isAdmin };
