@@ -8,7 +8,7 @@ connectDB();
 
 const app = express();
 
-// 2. Configure CORS (Must be BEFORE routes)
+// 2. Configure CORS (This handles OPTIONS requests automatically)
 app.use(cors({
   origin: 'https://nexus-saas-production-d8f7.up.railway.app', 
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
@@ -16,8 +16,7 @@ app.use(cors({
   credentials: true
 }));
 
-// Use this syntax for Node v22+ to avoid the PathError crash
-app.options('(.*)', cors()); 
+// REMOVED: The app.options line that was causing the PathError crash.
 
 app.use(express.json());
 
