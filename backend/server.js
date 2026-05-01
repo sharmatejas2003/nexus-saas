@@ -6,17 +6,22 @@ const connectDB = require("./config/db");
 // 1. Connect to Database
 connectDB();
 
+// ... imports
 const app = express();
 
-// 2. Configure CORS (Must be BEFORE routes)
+// MOVE THIS TO THE TOP - ABOVE EVERYTHING ELSE
 app.use(cors({
-  origin: 'https://nexus-saas-production-d8f7.up.railway.app', 
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  origin: 'https://nexus-saas-production-d8f7.up.railway.app', // NO trailing slash
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true
 }));
 
+// Add this line to explicitly handle OPTIONS requests
+app.options('*', cors()); 
+
 app.use(express.json());
+// ... routes
 
 // 3. Define Routes
 app.use("/api/auth", require("./routes/authRoutes"));
