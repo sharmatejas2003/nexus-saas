@@ -17,7 +17,7 @@ Nexus SaaS is a full-stack project management platform designed for industrial-s
 ##  Admin Access & Authentication
 To test the administrative features or create a teacher account, please refer to the detailed access guide:
 
- **[View the Admin & Registration Guide](./Admin_Guide.txt)**
+ **[View the Admin & Registration Guide](./Login_info.md)**
 
 This file contains pre-configured credentials and instructions on how to use the "Admin Secret" for new registrations.
 
