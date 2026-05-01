@@ -1,4 +1,4 @@
-# Nexus SaaS Industrial Task Management
+# Nexus SaaS Task Management
 
 Nexus SaaS is a full-stack project management platform designed for industrial-scale task tracking and AI-assisted workflow generation.
 
