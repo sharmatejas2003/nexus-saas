@@ -1,6 +1,6 @@
 const Task = require("../models/Task");
 
-// ✅ CREATE SINGLE TASK
+
 exports.createTask = async (req, res) => {
   try {
     const { title, description, assignedTo, project } = req.body;
@@ -18,7 +18,7 @@ exports.createTask = async (req, res) => {
   }
 };
 
-// ✅ CREATE MULTIPLE TASKS (Bulk) - Use this for AI results
+//CREATE MULTIPLE TASKS
 exports.createManyTasks = async (req, res) => {
   try {
     const { tasks, project } = req.body; 
@@ -35,7 +35,7 @@ exports.createManyTasks = async (req, res) => {
   }
 };
 
-// ✅ GET TASKS BY PROJECT
+//GET TASKS BY PROJECT
 exports.getTasksByProject = async (req, res) => {
   try {
     const tasks = await Task.find({ project: req.params.projectId });
@@ -45,7 +45,7 @@ exports.getTasksByProject = async (req, res) => {
   }
 };
 
-// ✅ UPDATE TASK (Modern syntax to fix Mongoose warnings)
+// UPDATE TASK 
 exports.updateTask = async (req, res) => {
   try {
     const task = await Task.findByIdAndUpdate(

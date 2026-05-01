@@ -7,7 +7,7 @@ const {
   getTasksByProject 
 } = require("../controllers/taskController");
 
-// ✅ Order matters: Specific strings like "bulk" must come before parameters like ":id"
+// Order matters
 router.post("/bulk", protect, createManyTasks);
 router.post("/", protect, createTask);
 

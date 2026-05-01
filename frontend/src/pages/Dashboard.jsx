@@ -62,7 +62,7 @@ export default function Dashboard() {
           </div>
         </div>
 
-        {/* 🔥 PROGRESS BAR */}
+        {/* ROGRESS BAR */}
         <div className="mt-8">
           <h2 className="mb-2 font-medium text-lg">Project Progress</h2>
 

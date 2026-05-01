@@ -11,27 +11,27 @@ export default function CreateTask() {
 
   const [projects, setProjects] = useState([]);
 
-  // 🔥 Fetch projects for dropdown
+  // Fetch projects for dropdown
   useEffect(() => {
     API.get("/projects")
       .then(res => setProjects(res.data))
       .catch(err => console.log(err));
   }, []);
 
-  // 🔥 Create task
+  // Create task
   const createTask = async () => {
     try {
       await API.post("/tasks", {
         ...form,
-        status: "Pending" // ✅ FIXED STATUS
+        status: "Pending" 
       });
 
-      alert("Task Created ✅");
+      alert("Task Created ");
       setForm({ title: "", description: "", project: "" });
 
     } catch (err) {
       console.log(err);
-      alert("Error creating task ❌");
+      alert("Error creating task ");
     }
   };
 

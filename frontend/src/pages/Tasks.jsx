@@ -10,7 +10,7 @@ export default function Tasks() {
   const [title, setTitle] = useState("");
   const [loading, setLoading] = useState(false);
 
-  // ✅ Fetch project details so the AI knows the project name
+
   const fetchProjectDetails = async () => {
     try {
       const res = await API.get(`/projects/${id}`); 
@@ -20,7 +20,7 @@ export default function Tasks() {
     }
   };
 
-  // ✅ Fetch tasks assigned to this project
+
   const fetchTasks = async () => {
     try {
       const res = await API.get(`/tasks/${id}`);
@@ -35,7 +35,7 @@ export default function Tasks() {
     fetchProjectDetails();
   }, [id]);
 
-  // ✅ Manual task creation
+  
   const createTask = async () => {
     if (!title.trim()) return alert("Task title is required");
     try {
@@ -51,7 +51,7 @@ export default function Tasks() {
     }
   };
 
-  // ✅ Update status (Syncs with Dashboard progress)
+
   const updateStatus = async (taskId, status) => {
     try {
       await API.put(`/tasks/${taskId}`, { status });
@@ -61,16 +61,16 @@ export default function Tasks() {
     }
   };
 
-  // ✅ AI Generation using Bulk API to avoid 429 Rate Limits
+  
   const generateTasksWithAI = async () => {
     try {
       setLoading(true);
       const res = await API.post("/ai", {
         message: "Generate 5 specific, short task titles for this project.",
-        context: project?.name || "General Project" // Primary fix for generic AI answers
+        context: project?.name || "General Project" 
       });
 
-      // Cleans numbering, dashes, and bolding (**) from AI response
+    
       const tasksList = res.data.reply
         .split("\n")
         .map(t => t.replace(/^\d+\.\s*/, "").replace(/^[*-]\s*/, "").replace(/\*\*/g, "").trim())

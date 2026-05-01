@@ -9,7 +9,7 @@ const generateToken = (user) => {
   );
 };
 
-// Removed redundant bcrypt import here - it belongs in the Model
+
 
 exports.login = async (req, res) => {
   try {
@@ -25,7 +25,7 @@ exports.login = async (req, res) => {
       return res.status(400).json({ message: "Invalid email or password" });
     }
 
-    // Ensure JWT_SECRET is used for consistent token generation
+
     const token = generateToken(user);
 
     res.json({
@@ -44,7 +44,7 @@ exports.login = async (req, res) => {
 };
 
 exports.register = async (req, res) => {
-  // ... (Your register code is fine, but ensure generateToken is used consistently)
+  
   try {
     const { name, email, password, role, adminSecret } = req.body;
 

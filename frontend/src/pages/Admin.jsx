@@ -9,7 +9,7 @@ export default function Admin() {
   // Get current user from localStorage to check against the list
   const currentUser = JSON.parse(localStorage.getItem("user") || "{}");
 
-  // ✅ FETCH USERS
+  //  FETCH USERS
   const fetchUsers = async () => {
     try {
       const res = await API.get("/admin/users");
@@ -20,7 +20,7 @@ export default function Admin() {
     }
   };
 
-  // ✅ FETCH LOGS
+  // FETCH LOGS
   const fetchLogs = async () => {
     try {
       const res = await API.get("/admin/logs");
@@ -36,7 +36,7 @@ export default function Admin() {
     fetchLogs();
   }, []);
 
-  // ✅ ACTIONS
+  // ACTIONS
   const ban = async (id) => {
     await API.put(`/admin/ban/${id}`);
     fetchUsers();
@@ -62,7 +62,7 @@ export default function Admin() {
 
       <div className="p-6">
         <h1 className="text-2xl font-bold mb-4">
-          👑 Welcome Admin Panel
+           Welcome to the Admin Panel
         </h1>
 
         {/* STATS */}

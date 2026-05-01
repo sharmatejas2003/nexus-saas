@@ -48,7 +48,7 @@ const deleteProject = async (req, res) => {
   }
 };
 
-// EXPLICIT EXPORT - This is the "Fix"
+
 module.exports = {
   createProject,
   getProjects,

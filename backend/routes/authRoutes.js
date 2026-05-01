@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-// ✅ CORRECT NAMES (MATCH CONTROLLER)
+// CORRECT NAMES=>MATCH CONTROLLER
 const { login, register } = require("../controllers/authController");
 
 router.post("/register", register);

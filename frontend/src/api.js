@@ -4,7 +4,7 @@ const API = axios.create({
   baseURL: "https://nexus-saas-production-8661.up.railway.app/api", 
 });
 
-// THIS PART ATTACHES THE TOKEN
+
 API.interceptors.request.use((req) => {
   const token = localStorage.getItem("token");
   if (token) {

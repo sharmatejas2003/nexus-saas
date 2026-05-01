@@ -2,7 +2,7 @@ const router = require("express").Router();
 const { protect, isAdmin } = require("../middleware/auth");
 const projectController = require("../controllers/projectController");
 
-// Destructure from the controller object
+// Destructure
 const {
   createProject,
   getProjects,
@@ -12,7 +12,7 @@ const {
 
 // Safety check for Node v22
 if (!createProject || !getProjects || !deleteProject) {
-  console.error("❌ ERROR: Project controller functions are missing!");
+  console.error("ERROR: Project controller functions are missing!");
 }
 
 router.post("/", protect, createProject);

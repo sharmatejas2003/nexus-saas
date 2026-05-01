@@ -23,7 +23,7 @@ export default function Navbar() {
 
         {user?.role === "admin" && (
           <Link to="/admin" className="text-yellow-300 font-bold hover:text-yellow-400 transition">
-            👑 Admin Panel
+            Admin Panel
           </Link>
         )}
 

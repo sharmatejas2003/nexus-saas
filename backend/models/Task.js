@@ -24,7 +24,7 @@ const taskSchema = new mongoose.Schema({
     ref: "User"
   },
 
-  // 🔥 ADD THIS (MOST IMPORTANT)
+
   project: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Project",

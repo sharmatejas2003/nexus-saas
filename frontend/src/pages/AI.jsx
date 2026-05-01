@@ -65,11 +65,11 @@ export default function AI() {
             </div>
           ))}
 
-          {/* 🔥 LOADER INSIDE CHAT */}
+          {/* LOADER INSIDE CHAT */}
           {loading && (
             <div className="flex justify-start">
               <div className="bg-gray-200 px-4 py-2 rounded-2xl text-sm animate-pulse">
-                🤖 AI is thinking...
+                /\| AI is thinking...
               </div>
             </div>
           )}

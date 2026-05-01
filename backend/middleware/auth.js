@@ -25,5 +25,4 @@ const isAdmin = (req, res, next) => {
   next();
 };
 
-// Unified export style
 module.exports = { protect, isAdmin };

@@ -10,7 +10,7 @@ exports.askAI = async (req, res) => {
       ? `Project: "${context}"\nRequest: ${message}`
       : `Request: ${message}`;
 
-    // ✅ POWER FIX: The most stable URL for Gemini 1.5 Flash
+    //Gemini 1.5 Flash
     const response = await axios.post(
       `[https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=$](https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=$){process.env.GEMINI_API_KEY}`,
       { 
@@ -27,8 +27,7 @@ exports.askAI = async (req, res) => {
     const reply = response.data.candidates?.[0]?.content?.parts?.[0]?.text || "No response";
     res.json({ reply });
   } catch (err) {
-    // Log the EXACT error from Google to your terminal
-    console.error("🔥 GOOGLE API ERROR:", err.response?.data || err.message);
+    console.error("GOOGLE API ERROR:", err.response?.data || err.message);
     
     if (err.response?.status === 429) {
       return res.status(429).json({ error: "Rate limit hit. Wait 60 seconds." });
