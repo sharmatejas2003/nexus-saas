@@ -10,20 +10,17 @@ export default function Login() {
 
  const handleSubmit = async (e) => {
   e.preventDefault();
-  
-  // LOG THE DATA before sending to verify it's not empty
-  console.log("Attempting login with:", { email, password });
-
   try {
     const res = await API.post("/auth/login", { email, password });
 
-    // Store items exactly as needed by your App/Navbar
+    // This part is critical for the "Admin" badge to show up
     localStorage.setItem("token", res.data.token);
-    localStorage.setItem("user", JSON.stringify(res.data.user)); 
-    
-    navigate("/dashboard");
+    localStorage.setItem("user", JSON.stringify(res.data.user));
+
+    alert("Login successful!");
+    navigate("/dashboard"); // This moves you away from the login screen
   } catch (err) {
-    // This will alert the specific error from the backend
+    console.error(err);
     alert(err.response?.data?.message || "Login failed");
   }
 };
