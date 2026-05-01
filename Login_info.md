@@ -1,4 +1,6 @@
+===========================================================
 NEXUS SAAS - ACCESS & ADMINISTRATION GUIDE
+===========================================================
 
 1. OVERVIEW
 This platform uses role-based access control (RBAC). Users can join 
@@ -11,24 +13,31 @@ the following pre-configured credentials:
 
    Email:    tejas@admin.com
    Password: admin123
-   Role:      Admin
+   Role:     Admin
 
-3. REGISTERING A NEW ADMIN USER
-To create a new, unique admin account (e.g., for a Teacher):
+3. REGISTERING A NEW ADMIN USER (e.g., for a Teacher)
+To create a new admin account:
    
    A. Navigate to the /register page.
-   B. Fill in the Name, Email, and Password.
-   C. Select "Admin" from the Role dropdown menu.
-   D. Enter the "Admin Secret" (Configured in the system environment).
-   E. Click "Register".
+   B. Select "Admin" from the Role dropdown menu.
+   C. Enter the Admin Secret: tejas_admin_123
+   D. Click "Register".
 
-4. SECURITY NOTE
-The "Admin Secret" is a backend environment variable (ADMIN_SECRET) 
-that prevents unauthorized users from granting themselves admin 
-privileges. Standard users should register as "Member" and do not 
-require a secret key.
+4. HOW TO UPDATE THE ADMIN SECRET
+The "Admin Secret" is managed in the Backend Environment Variables. 
+To change it:
+   
+   A. Log into your Railway Dashboard.
+   B. Select the 'backend' service for Nexus SaaS.
+   C. Go to the 'Variables' tab.
+   D. Find or Create 'ADMIN_SECRET'.
+   E. Update the value (e.g., change 'tejas_admin_123' to something else).
+   F. Railway will automatically redeploy the app with the new key.
 
 5. TROUBLESHOOTING
-- If the login is stuck, ensure the backend is active on Railway.
-- Localhost credentials do not sync with the deployed app; 
-  new accounts must be registered on the live URL.
+- Invalid Secret: Ensure the key in the form matches the Railway variable exactly.
+- Stuck Loading: Ensure the backend container is "Active" in Railway.
+
+===========================================================
+Generated for the Nexus SaaS Project - 2026 Batch
+===========================================================
