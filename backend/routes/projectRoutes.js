@@ -1,19 +1,19 @@
 const router = require("express").Router();
 const { protect, isAdmin } = require("../middleware/auth");
 
-// ❌ YOU FORGOT deleteProject HERE
 const {
   createProject,
   getProjects,
   addMember,
-  deleteProject // ✅ ADD THIS
+  deleteProject 
 } = require("../controllers/projectController");
 
+// Standard Routes
 router.post("/", protect, createProject);
 router.get("/", protect, getProjects);
-router.post("/:id/add-member", protect, isAdmin, addMember);
 
-// ✅ NOW THIS WILL WORK
+// Admin/Member Routes
+router.post("/:id/add-member", protect, isAdmin, addMember);
 router.delete("/:id", protect, deleteProject);
 
 module.exports = router;

@@ -29,12 +29,14 @@ export default function Projects() {
 
     try {
       setLoading(true);
+      // Wait for the POST to finish
       await API.post("/projects", {
         name,
         description: "Standard Project"
       });
-      setName("");
-      fetchProjects();
+      
+      setName(""); // Clear the input
+      await fetchProjects(); // Wait for the new list to load
     } catch (err) {
       console.error(err);
       alert("Project creation failed");

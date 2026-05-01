@@ -3,29 +3,25 @@ const Task = require("../models/Task");
 
 exports.createProject = async (req, res) => {
   try {
-    const project = await Project.create({
-      name: req.body.name,
-      description: req.body.description,
-      createdBy: req.user.id,   // 🔥 REQUIRED
-      members: [req.user.id]    // 🔥 REQUIRED
+    const { name, description } = req.body;
+    const newProject = new Project({
+      name,
+      description,
+      owner: req.user._id // Critical: must match your Auth middleware
     });
-
-    res.json(project);
+    await newProject.save();
+    res.status(201).json(newProject);
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: "Project creation failed" });
+    res.status(500).json({ message: "Server Error" });
   }
 };
 
 exports.getProjects = async (req, res) => {
   try {
-    const projects = await Project.find({
-      members: req.user.id   // 🔥 IMPORTANT
-    });
-
-    res.json(projects);
+    const projects = await Project.find({ owner: req.user._id }); 
+    res.json(projects); // This ensures the frontend gets an array []
   } catch (err) {
-    res.status(500).json({ message: "Error fetching projects" });
+    res.status(500).json({ message: "Server Error" });
   }
 };
 
