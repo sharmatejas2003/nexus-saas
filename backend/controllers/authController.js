@@ -9,26 +9,25 @@ const generateToken = (user) => {
   );
 };
 
-const bcrypt = require("bcryptjs");
+// Removed redundant bcrypt import here - it belongs in the Model
 
 exports.login = async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    // 1. Check if user exists
     const user = await User.findOne({ email });
     if (!user) {
       return res.status(400).json({ message: "Invalid email or password" });
     }
 
-    // 2. Check password (ensure you have a comparePassword method in your User model)
-    const isMatch = await user.comparePassword(password);
+    // ✅ FIXED: Changed comparePassword to matchPassword
+    const isMatch = await user.matchPassword(password); 
     if (!isMatch) {
       return res.status(400).json({ message: "Invalid email or password" });
     }
 
-    // 3. Generate Token
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: "1d" });
+    // Ensure JWT_SECRET is used for consistent token generation
+    const token = generateToken(user);
 
     res.json({
       token,
@@ -40,11 +39,13 @@ exports.login = async (req, res) => {
       }
     });
   } catch (err) {
+    console.error(err); // Always log the error so you can see it in Railway
     res.status(500).json({ message: "Server Error" });
   }
 };
 
 exports.register = async (req, res) => {
+  // ... (Your register code is fine, but ensure generateToken is used consistently)
   try {
     const { name, email, password, role, adminSecret } = req.body;
 
@@ -52,14 +53,12 @@ exports.register = async (req, res) => {
       return res.status(400).json({ message: "All fields required" });
     }
 
-   const existingUser = await User.findOne({ email });
-if (existingUser) {
-  return res.status(400).json({ message: "User already exists" });
-}
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return res.status(400).json({ message: "User already exists" });
+    }
 
     let finalRole = "member";
-
-    // 🔐 ADMIN SECURITY
     if (role === "admin") {
       if (adminSecret !== process.env.ADMIN_SECRET) {
         return res.status(403).json({ message: "Invalid admin secret" });
@@ -76,7 +75,12 @@ if (existingUser) {
 
     res.json({
       token: generateToken(user),
-      user
+      user: {
+        id: user._id,
+        name: user.name,
+        email: user.email,
+        role: user.role
+      }
     });
 
   } catch (err) {
